@@ -1,0 +1,14 @@
+{
+  "name": "react-native-background-task",
+  "version": "0.1.0",
+  "author": "James Isaac <james.isaac@gmail.com>",
+  "scripts": {
+    "flow": "flow || exit 0"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.39.0"
+  },
+  "peerDependencies": {
+    "react-native": "*"
+  }
+}
