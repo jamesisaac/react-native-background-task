@@ -43,7 +43,7 @@ Parameters:
   * **`period`** `number` - (Android only) Desired number of seconds between each
     execution of the task.  Even on Android, the OS will only take this as a
     recommendation, and will likely enforce a minimum of 15 minutes (similar to
-    iOS).  Default is 9000 (15 minutes)
+    iOS).  Default is 900 (15 minutes)
   * **`timeout`** `number` - (Android only) Number of seconds the task will have
     to execute.  iOS has a hardcoded limit of 30 seconds.  Default 30 seconds.
 

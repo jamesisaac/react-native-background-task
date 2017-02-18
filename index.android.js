@@ -9,7 +9,7 @@ const JOB_KEY = 'backgroundTask'
 const BackgroundTask: BackgroundTaskInterface = {
 
   register: function(task, {
-    period = 9000, // 15 minutes
+    period = 900, // 15 minutes
     timeout = 30,
   } = {}) {
     // Cancel any existing tasks, as we can only have one to match iOS, and we
@@ -25,8 +25,8 @@ const BackgroundTask: BackgroundTaskInterface = {
       ({ appState }) => {
         RNBackgroundJob.schedule(
           JOB_KEY,
-          timeout,
-          period,
+          timeout * 1000, // convert to ms
+          period * 1000, // convert to ms
           true, // persist after restart
           appState === 'active',
           RNBackgroundJob.ANY, // network type
