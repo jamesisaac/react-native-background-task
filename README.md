@@ -1,6 +1,8 @@
 # react-native-background-task
 
-Register a single JS background task to run at periodic intervals, on Android and iOS React Native apps, even when the app is closed.
+**WORK IN PROGRESS / NOT YET READY FOR PRODUCTION USE**
+
+Periodic background tasks for React Native apps, cross-platform (iOS and Android), which run even when the app is closed.
 
 This builds on top of the native modules provided by the following two libraries:
 
@@ -71,6 +73,45 @@ BackgroundTask.register(() => {
 class MyApp extends React.Component {
   render() {
     return <Text>Hello world</Text>
+  }
+}
+```
+
+### Fetch / store data
+
+```js
+import React from 'react'
+import { AsyncStorage, Button, Text } from 'react-native'
+import BackgroundTask from 'react-native-background-task'
+
+BackgroundTask.register(async () => {
+  // Fetch some data over the network which we want the user to have an up-to-
+  // date copy of, even if they have no network when using the app
+  const response = await fetch('http://feeds.bbci.co.uk/news/rss.xml')
+  const text = await response.text()
+  
+  // Data persisted to AsyncStorage can later be accessed by the foreground app
+  await AsyncStorage.setItem('@MyApp:key', text)
+  
+  // Remember to call finish()
+  BackgroundTask.finish()
+}, {
+  period: 1800, // Aim to run every 30 mins - more conservative on battery
+})
+
+class MyApp extends React.Component {
+  render() {
+    return (
+      <View>
+        <Button
+          title="Read results from AsyncStorage"
+          onPress={async () => {
+            const result = await AsyncStorage.getItem('@MyApp:key')
+            console.log(result) 
+          }}
+        />
+      </View>
+    )
   }
 }
 ```
