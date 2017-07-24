@@ -2,6 +2,24 @@
   "name": "react-native-background-task",
   "version": "0.1.1",
   "author": "James Isaac <james.isaac@gmail.com>",
+  "description": "Periodic background tasks for React Native apps, cross-platform (iOS and Android), which run even when the app is closed.",
+  "keywords": [
+    "react-native",
+    "background-jobs",
+    "fetch",
+    "android",
+    "ios",
+    "offline",
+    "sync"
+  ],
+  "bugs": {
+    "url": "https://github.com/jamesisaac/react-native-background-task/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesisaac/react-native-background-task.git"
+  },
   "scripts": {
     "flow": "flow || exit 0"
   },
