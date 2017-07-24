@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-task",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "James Isaac <james.isaac@gmail.com>",
   "scripts": {
     "flow": "flow || exit 0"
