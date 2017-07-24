@@ -9,6 +9,8 @@
     "flow-bin": "^0.39.0"
   },
   "peerDependencies": {
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-background-fetch": "*",
+    "react-native-background-job": ">=1.1.0 <1.1.3"
   }
 }

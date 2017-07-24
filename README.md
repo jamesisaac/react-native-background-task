@@ -23,6 +23,7 @@ $ npm install --save react-native-background-task
   [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch)
 * **Android**: Follow native Android module installation instructions from
   [react-native-background-job](https://github.com/vikeri/react-native-background-job)
+  * Recommended version: v1.1.0 (API has changed as of v1.1.3)
 
 ## API
 
