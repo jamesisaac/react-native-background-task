@@ -14,7 +14,8 @@ Behind the scenes, this library takes a different approach with each platform:
 
 - **Android**: A native implementation, which provides scheduling on top of
   RN's built-in [Headless JS](https://facebook.github.io/react-native/docs/headless-js-android.html)
-  (Android only). Min API level: 16 (Android 4.1).
+  (Android only).
+  - Min API level: 16 (Android 4.1).
 - **iOS**: [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch),
   which uses the iOS-specific `Background Fetch` technique.
 
@@ -38,7 +39,7 @@ $ npm install --save react-native-background-task
   $ react-native link react-native-background-task
   ```
 
-2. One manual step is still needed - in the file
+2. One manual step is still needed - in your project file
   `android/app/src/main/java/myapp/MainApplication.java`, add the following to
   the end of the `onCreate()` method:
   
@@ -48,9 +49,11 @@ $ npm install --save react-native-background-task
 
 ### iOS
 
-Follow native iOS module installation instructions from
-  [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch)
+Follow installation instructions for version 2.0.x of
+[react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch)
   
+This library will behave correctly on iOS as long as `react-native-background-fetch`
+is installed alongside it, and correctly linked.
 
 ## API
 
@@ -79,14 +82,14 @@ platform's scheduler.
 
 Parameters:
 
-* **`options`**: `?object` - Any configuration you want to be set with
+- **`options`**: `?object` - Any configuration you want to be set with
   the task.  Note that most of these will only work on one platform.
   
-  * **`period`** `number` - (Android only) Desired number of seconds between each
+  - **`period?`** `number` - (Android only) Desired number of seconds between each
     execution of the task.  Even on Android, the OS will only take this as a
     recommendation, and will enforce a minimum of 15 minutes (similar to iOS).
     Default is 900 (15 minutes)
-  * **`timeout`** `number` - (Android only) Number of seconds the task will have
+  - **`timeout?`** `number` - (Android only) Number of seconds the task will have
     to execute.  iOS has a hardcoded limit of 30 seconds.  Default 30 seconds.
 
 ### `cancel()`
@@ -98,7 +101,7 @@ Cancels any currently registered task.
 **Must be called at the end of your task** to indicate to the OS that it's
 finished.  (Only required on iOS, no-op on Android).
 
-## Example
+## Examples
 
 ### Simple
 
