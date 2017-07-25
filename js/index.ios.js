@@ -4,7 +4,6 @@ import BackgroundFetch from 'react-native-background-fetch'
 import type { BackgroundTaskInterface } from '../types'
 
 const BackgroundTask: BackgroundTaskInterface = {
-
   _definition: null,
 
   define: function(task) {
@@ -20,7 +19,9 @@ const BackgroundTask: BackgroundTaskInterface = {
     BackgroundFetch.configure(
       { stopOnTerminate: false },
       this._definition,
-      () => { console.warn(`Device doesn't support Background Fetch`) }
+      () => {
+        console.warn(`Device doesn't support Background Fetch`)
+      }
     )
 
     // Query the authorization status

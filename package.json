@@ -22,10 +22,12 @@
     "url": "https://github.com/jamesisaac/react-native-background-task.git"
   },
   "scripts": {
-    "flow": "flow || exit 0"
+    "flow": "flow || exit 0",
+    "prettier": "prettier --no-semi --single-quote --trailing-comma es5 --write \"js/**/*.js\""
   },
   "devDependencies": {
-    "flow-bin": "^0.39.0"
+    "flow-bin": "^0.50.0",
+    "prettier": "^1.5.3"
   },
   "peerDependencies": {
     "react-native": "*",

@@ -7,3 +7,5 @@
 /android/local.properties
 /node_modules/
 npm-debug.log
+yarn.lock
+yarn-debug.log
