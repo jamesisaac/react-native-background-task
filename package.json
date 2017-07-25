@@ -29,6 +29,6 @@
   },
   "peerDependencies": {
     "react-native": "*",
-    "react-native-background-fetch": "*"
+    "react-native-background-fetch": "^2.0.0"
   }
 }

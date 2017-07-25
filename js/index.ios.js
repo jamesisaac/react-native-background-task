@@ -1,10 +1,7 @@
 // @flow
 
-import { NativeEventEmitter, NativeModules } from 'react-native'
+import BackgroundFetch from 'react-native-background-fetch'
 import type { BackgroundTaskInterface } from '../types'
-
-const { RNBackgroundFetch } = NativeModules
-const eventEmitter = new NativeEventEmitter(RNBackgroundFetch)
 
 const BackgroundTask: BackgroundTaskInterface = {
 
@@ -16,31 +13,32 @@ const BackgroundTask: BackgroundTaskInterface = {
 
   schedule: function({} = {}) {
     // Cancel existing tasks
-    RNBackgroundFetch.stop()
+    BackgroundFetch.stop()
 
     // Configure the native module
     // Automatically calls RNBackgroundFetch#start
-    RNBackgroundFetch.configure({
-      stopOnTerminate: false,
-    }, () => { console.error(`Device doesn't support Background Fetch`) })
+    BackgroundFetch.configure(
+      { stopOnTerminate: false },
+      this._definition,
+      () => { console.warn(`Device doesn't support Background Fetch`) }
+    )
 
-    eventEmitter.addListener('fetch', this._definition)
-
-    RNBackgroundFetch.status(status => {
-      if (status === RNBackgroundFetch.STATUS_RESTRICTED) {
-        console.error('BackgroundFetch is restricted')
-      } else if (status === RNBackgroundFetch.STATUS_DENIED) {
-        console.error('BackgroundFetch is restricted')
+    // Query the authorization status
+    BackgroundFetch.status(status => {
+      if (status === BackgroundFetch.STATUS_RESTRICTED) {
+        console.warn('BackgroundFetch is restricted')
+      } else if (status === BackgroundFetch.STATUS_DENIED) {
+        console.warn('BackgroundFetch is denied')
       }
     })
   },
 
   cancel: function() {
-    RNBackgroundFetch.stop()
+    BackgroundFetch.stop()
   },
 
   finish: function() {
-    RNBackgroundFetch.finish()
+    BackgroundFetch.finish()
   },
 }
 

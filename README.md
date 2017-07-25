@@ -61,8 +61,7 @@ Define the JS code that this module should be executing.
 - Should be called at the top level of your JS, **not** inside a component.
   This is because in headless mode no components are mounted, but the code
   still needs to be accessible.
-- Will overwrite any previously registered task.
-- Will `console.error` if it can't register the task.
+- Will overwrite any previously defined task.
 
 Parameters:
 
@@ -76,6 +75,7 @@ platform's scheduler.
 - Should be called from inside a component (e.g. your App's
   `componentDidMount`).  This is to avoid double-scheduling when the task
   launches in headless mode.
+- Will `console.warn` if the device is restricting scheduling the task.
 
 Parameters:
 

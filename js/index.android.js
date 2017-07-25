@@ -17,7 +17,7 @@ const BackgroundTask: BackgroundTaskInterface = {
     period = 900, // 15 minutes
     timeout = 30,
     flex,
-  }) {
+  } = {}) {
     // Default flex to within 50% of the period
     if (!flex) {
       flex = Math.floor(period / 2)
