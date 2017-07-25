@@ -1,6 +1,10 @@
 # react-native-background-task
 
-**WORK IN PROGRESS / NOT YET READY FOR PRODUCTION USE**
+[![npm version](https://img.shields.io/npm/v/react-native-background-task.svg)](https://www.npmjs.com/package/react-native-background-task)
+[![license](https://img.shields.io/github/license/jamesisaac/react-native-background-task.svg)](https://opensource.org/licenses/MIT)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-background-task.svg)](https://www.npmjs.com/package/react-native-background-task)
+
+**WORK IN PROGRESS / PLEASE TEST BEFORE DEPLOYING IN PRODUCTION**
 
 Periodic background tasks for React Native apps, cross-platform (iOS and
 Android), which run even when the app is closed.
