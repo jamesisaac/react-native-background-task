@@ -1,14 +1,20 @@
 // @flow
 
 import { NativeEventEmitter, NativeModules } from 'react-native'
-import type { BackgroundTaskInterface } from './types'
+import type { BackgroundTaskInterface } from '../types'
 
 const { RNBackgroundFetch } = NativeModules
 const eventEmitter = new NativeEventEmitter(RNBackgroundFetch)
 
 const BackgroundTask: BackgroundTaskInterface = {
 
-  register: function(task, {} = {}) {
+  _definition: null,
+
+  define: function(task) {
+    this._definition = task
+  },
+
+  schedule: function({} = {}) {
     // Cancel existing tasks
     RNBackgroundFetch.stop()
 
@@ -18,7 +24,7 @@ const BackgroundTask: BackgroundTaskInterface = {
       stopOnTerminate: false,
     }, () => { console.error(`Device doesn't support Background Fetch`) })
 
-    eventEmitter.addListener('fetch', task)
+    eventEmitter.addListener('fetch', this._definition)
 
     RNBackgroundFetch.status(status => {
       if (status === RNBackgroundFetch.STATUS_RESTRICTED) {

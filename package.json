@@ -16,6 +16,7 @@
     "url": "https://github.com/jamesisaac/react-native-background-task/issues"
   },
   "license": "MIT",
+  "main": "js/index",
   "repository": {
     "type": "git",
     "url": "https://github.com/jamesisaac/react-native-background-task.git"
@@ -28,7 +29,6 @@
   },
   "peerDependencies": {
     "react-native": "*",
-    "react-native-background-fetch": "*",
-    "react-native-background-job": ">=1.1.0 <1.1.3"
+    "react-native-background-fetch": "*"
   }
 }
