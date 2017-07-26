@@ -18,7 +18,7 @@ Behind the scenes, this library takes a different approach with each platform:
   RN's built-in [Headless JS](https://facebook.github.io/react-native/docs/headless-js-android.html)
   (Android only).
   - Min API level: 16 (Android 4.1).
-- **iOS**: [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch),
+- **iOS**: A proxy around [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch),
   which uses the iOS-specific `Background Fetch` technique.
 
 To achieve a unified API, this library exposes the lowest common denominator
@@ -93,11 +93,11 @@ Parameters:
 - **`options?`**: `Object` - Any configuration you want to be set with
   the task.  Note that most of these will only work on one platform.
   
-  - **`period?`** `number` - (Android only) Desired number of seconds between each
+  - **`period?`**: `number` - (Android only) Desired number of seconds between each
     execution of the task.  Even on Android, the OS will only take this as a
     recommendation, and will enforce a minimum of 15 minutes (similar to iOS).
     Default is 900 (15 minutes)
-  - **`timeout?`** `number` - (Android only) Number of seconds the task will have
+  - **`timeout?`**: `number` - (Android only) Number of seconds the task will have
     to execute.  iOS has a hardcoded limit of 30 seconds.  Default 30 seconds.
 
 ### `finish()`
@@ -114,13 +114,13 @@ Cancels any currently scheduled task.
 Query the status of background tasks within this app.  Returns a Promise with
 an object of the following shape:
 
-- **`available`** `boolean` - Whether background tasks are available to the app.
+- **`available`**: `boolean` - Whether background tasks are available to the app.
   On Android this will always be true, but on iOS background tasks could be
   blocked (see [UIBackgroundRefreshStatus](https://developer.apple.com/documentation/uikit/uibackgroundrefreshstatus)).
-- **`unavailableReason?`** `string` - If unavailable, gives the reason:
-    - **`BackgroundTask.UNAVAILABLE_DENIED`** - The user explicitly disabled
+- **`unavailableReason?`**: `string` - If unavailable, gives the reason:
+    - **`BackgroundTask.UNAVAILABLE_DENIED`**: - The user explicitly disabled
       background behavior for this app or for the whole system.
-    - **`BackgroundTask.UNAVAILABLE_RESTRICTED`** - Background updates
+    - **`BackgroundTask.UNAVAILABLE_RESTRICTED`**: - Background updates
       unavailable and can't be enabled by the user (e.g. parental controls).
 
 ## Caveats
