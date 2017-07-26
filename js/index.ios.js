@@ -10,7 +10,7 @@ const BackgroundTask: BackgroundTaskInterface = {
     this._definition = task
   },
 
-  schedule: function({} = {}) {
+  schedule: function(options = {}) {
     // Cancel existing tasks
     BackgroundFetch.stop()
 
