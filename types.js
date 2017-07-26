@@ -9,12 +9,18 @@ export type ScheduleOptions = {
   flex?: number,
 }
 
+export type StatusResponse = {
+  available: boolean,
+  unavailableReason?: 'denied' | 'restricted',
+}
+
 /**
  * See README.md for documentation
  */
 export type BackgroundTaskInterface = {
   define: (task: () => void) => void,
   schedule: (options?: ScheduleOptions) => void,
-  cancel: () => void,
   finish: () => void,
+  cancel: () => void,
+  statusAsync: () => Promise<StatusResponse>,
 }

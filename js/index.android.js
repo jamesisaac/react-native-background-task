@@ -1,11 +1,14 @@
 // @flow
 
 import { AppRegistry, NativeModules } from 'react-native'
+import constants from './contants'
 import type { BackgroundTaskInterface } from '../types'
 
 const { BackgroundTask: RNBackgroundTask } = NativeModules
 
 const BackgroundTask: BackgroundTaskInterface = {
+  ...constants,
+
   define: function(task) {
     // Register the headless task
     const fn = async () => {
@@ -33,13 +36,20 @@ const BackgroundTask: BackgroundTaskInterface = {
     })
   },
 
+  finish: function() {
+    // Needed for iOS, no-op on Android
+  },
+
   cancel: function() {
     RNBackgroundTask.cancel()
   },
 
-  finish: function() {
-    // Needed for iOS, no-op on Android
-  },
+  statusAsync: function() {
+    // No options exist on Android to block background tasks
+    return Promise.resolve({
+      available: true,
+    })
+  }
 }
 
 module.exports = BackgroundTask

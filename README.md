@@ -96,14 +96,28 @@ Parameters:
   - **`timeout?`** `number` - (Android only) Number of seconds the task will have
     to execute.  iOS has a hardcoded limit of 30 seconds.  Default 30 seconds.
 
-### `cancel()`
-
-Cancels any currently registered task.
-
 ### `finish()`
 
 **Must be called at the end of your task** to indicate to the OS that it's
 finished.  (Only required on iOS, no-op on Android).
+
+### `cancel()`
+
+Cancels any currently scheduled task.
+
+### `statusAsync()`
+
+Query the status of background tasks within this app.  Returns a Promise with
+an object of the following shape:
+
+- **`available`** `boolean` - Whether background tasks are available to the app.
+  On Android this will always be true, but on iOS background tasks could be
+  blocked (see [UIBackgroundRefreshStatus](https://developer.apple.com/documentation/uikit/uibackgroundrefreshstatus)).
+- **`unavailableReason?`** `string` - If unavailable, gives the reason:
+    - **`BackgroundTask.UNAVAILABLE_DENIED`** - The user explicitly disabled
+      background behavior for this app or for the whole system.
+    - **`BackgroundTask.UNAVAILABLE_RESTRICTED`** - Background updates
+      unavailable and can't be enabled by the user (e.g. parental controls).
 
 ## Examples
 
