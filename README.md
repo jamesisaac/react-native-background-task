@@ -4,15 +4,13 @@
 [![license](https://img.shields.io/github/license/jamesisaac/react-native-background-task.svg)](https://opensource.org/licenses/MIT)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-background-task.svg)](https://www.npmjs.com/package/react-native-background-task)
 
-**WORK IN PROGRESS / PLEASE TEST BEFORE DEPLOYING IN PRODUCTION**
-
 Periodic background tasks for React Native apps, cross-platform (iOS and
 Android), which run even when the app is closed.
 
 This library allows the scheduling of a single periodic task, which executes
 when the app is in the background or closed, no more frequently than every 15
 minutes.  Network, AsyncStorage etc can be used (anything except UI), so
-perfect for things like a background data sync.
+perfect for things like a background data sync for offline support.
 
 Behind the scenes, this library takes a different approach with each platform:
 
@@ -23,7 +21,7 @@ Behind the scenes, this library takes a different approach with each platform:
 - **iOS**: [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch),
   which uses the iOS-specific `Background Fetch` technique.
 
-To achieve a unified API, this package exposes the lowest common denominator
+To achieve a unified API, this library exposes the lowest common denominator
 (e.g. only support for a single task, even though Android can support multiple).
 
 For more per-platform flexibility, there are other platform-specific libraries
@@ -37,7 +35,7 @@ $ npm install react-native-background-task --save
   
 ### Android
 
-1. The linking of the package can be done automatically by running:
+1. The linking of the library can be done automatically by running:
 
   ```bash
   $ react-native link react-native-background-task
@@ -53,7 +51,7 @@ $ npm install react-native-background-task --save
 
 ### iOS
 
-For iOS support, this package relies on version 2.0.x of
+For iOS support, this library relies on version 2.0.x of
 [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch)
 which can be installed as follows:
 
@@ -62,7 +60,7 @@ $ npm install react-native-background-fetch@2.0.x --save
 $ react-native link react-native-background-fetch
 ```
   
-This package will behave correctly on iOS as long as `react-native-background-fetch`
+This library will behave correctly on iOS as long as `react-native-background-fetch`
 is installed alongside it, and has been linked with your project.
 
 ## API
@@ -78,7 +76,7 @@ Define the JS code that this module should be executing.
 
 Parameters:
 
-* **`task`**: **required** `() => void` - Function to be executed in the background
+- **`task`**: **required** `() => void` - Function to be executed in the background
 
 ### `schedule(options)`
 
@@ -92,7 +90,7 @@ platform's scheduler.
 
 Parameters:
 
-- **`options`**: `?object` - Any configuration you want to be set with
+- **`options?`**: `Object` - Any configuration you want to be set with
   the task.  Note that most of these will only work on one platform.
   
   - **`period?`** `number` - (Android only) Desired number of seconds between each
@@ -125,6 +123,27 @@ an object of the following shape:
     - **`BackgroundTask.UNAVAILABLE_RESTRICTED`** - Background updates
       unavailable and can't be enabled by the user (e.g. parental controls).
 
+## Caveats
+
+- The exact timings of tasks are unpredictable (depends on device sleep state
+  etc.), and cannot be more frequent than every 15 minutes.  This library
+  should only be used for tasks that can have inexact timing, such as the
+  periodic background syncing of data.
+  
+Android:
+
+- Tasks will not run while the app is in the foreground, and scheduling can be
+  made even more imprecise when the app goes in/out of the foreground (as tasks
+  are rescheduled as soon as the app goes into the background).
+  
+iOS:
+
+- iOS Background Fetch does not work in the simulator.  It must be tested on a
+  real device.
+- The user can disable Background App Refresh for your app from their Settings
+  (use `statusAsync()` to check for this).
+
+
 ## Examples
 
 ### Simple
@@ -154,7 +173,7 @@ class MyApp extends React.Component {
 
 ```js
 import React from 'react'
-import { AsyncStorage, Button, Text } from 'react-native'
+import { Alert, AsyncStorage, Button } from 'react-native'
 import BackgroundTask from 'react-native-background-task'
 
 BackgroundTask.define(async () => {
@@ -175,6 +194,25 @@ class MyApp extends React.Component {
     BackgroundTask.schedule({
       period: 1800, // Aim to run every 30 mins - more conservative on battery
     })
+    
+    // Optional: Check if the device is blocking background tasks or not
+    this.checkStatus()
+  }
+  
+  async checkStatus() {
+    const status = await BackgroundTask.statusAsync()
+    
+    if (status.available) {
+      // Everything's fine
+      return
+    }
+    
+    const reason = status.unavailableReason
+    if (reason === BackgroundTask.UNAVAILABLE_DENIED) {
+      Alert.alert('Denied', 'Please enable background "Background App Refresh" for this app')
+    } else if (reason === BackgroundTask.UNAVAILABLE_RESTRICTED) {
+      Alert.alert('Restricted', 'Background tasks are restricted on your device')
+    }
   }
   
   render() {
