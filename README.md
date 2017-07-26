@@ -32,7 +32,7 @@ with more granular customisation.
 ## Installation
 
 ```bash
-$ npm install --save react-native-background-task
+$ npm install react-native-background-task --save
 ```
   
 ### Android
@@ -53,11 +53,17 @@ $ npm install --save react-native-background-task
 
 ### iOS
 
-Follow installation instructions for version 2.0.x of
+For iOS support, this package relies on version 2.0.x of
 [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch)
+which can be installed as follows:
+
+```bash
+$ npm install react-native-background-fetch@2.0.x --save
+$ react-native link react-native-background-fetch
+```
   
-This library will behave correctly on iOS as long as `react-native-background-fetch`
-is installed alongside it, and correctly linked.
+This package will behave correctly on iOS as long as `react-native-background-fetch`
+is installed alongside it, and has been linked with your project.
 
 ## API
 
@@ -82,7 +88,7 @@ platform's scheduler.
 - Should be called from inside a component (e.g. your App's
   `componentDidMount`).  This is to avoid double-scheduling when the task
   launches in headless mode.
-- Will `console.warn` if the device is restricting scheduling the task.
+- Will `console.warn` if the device is task was unable to be scheduled.
 
 Parameters:
 

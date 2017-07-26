@@ -23,18 +23,9 @@ const BackgroundTask: BackgroundTaskInterface = {
       { stopOnTerminate: false },
       this._definition,
       () => {
-        console.warn(`Device doesn't support Background Fetch`)
+        console.warn(`Background Fetch failed to start`)
       }
     )
-
-    // Query the authorization status
-    BackgroundFetch.status(status => {
-      if (status === BackgroundFetch.STATUS_RESTRICTED) {
-        console.warn('BackgroundFetch is restricted')
-      } else if (status === BackgroundFetch.STATUS_DENIED) {
-        console.warn('BackgroundFetch is denied')
-      }
-    })
   },
 
   finish: function() {
