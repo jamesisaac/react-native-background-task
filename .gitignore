@@ -1,3 +1,11 @@
-/.idea
-/node_modules
+/.idea/
+/android/.idea/
+/android/gen/
+/android/gradle/
+/android/gradlew
+/android/gradlew.bat
+/android/local.properties
+/node_modules/
 npm-debug.log
+yarn.lock
+yarn-debug.log
