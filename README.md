@@ -125,12 +125,13 @@ an object of the following shape:
 
 ## Limitations
 
-- The exact timings of tasks are unpredictable (both iOS and Android use black-
-  box algorithms depending on factors like device sleep state etc.), and cannot
-  be made more frequent than every 15 minutes.  This library should only be
-  used for tasks that are an incremental feature, and can have inexact timing,
-  such as the periodic background syncing of data, and you should be prepared
-  for the case that background task never fires at all.
+- Tasks cannot be scheduled any more frequently than every 15 minutes.
+- The exact timings of task execution are unpredictable, as both Anrdoid and
+  iOS use black-box algorithms, which depend on factors like device sleep
+  state.  This library should only be used for tasks that are an incremental 
+  feature, and can have inexact timing, such as the periodic background syncing
+  of data.  You should be prepared for the case that background task doesn't
+  fires at all.
   
 Android:
 
@@ -140,9 +141,9 @@ Android:
   
 iOS:
 
-- The iOS Background Fetch algorithm is a black box, and as it stands, it will
-  not continue to run after a user manually closes the app.  (The app being
-  closed by the OS to free up memory etc. should be fine).
+- iOS Background Fetch will not continue to run after a user manually closes
+  the app.  (The app being closed by the OS to free up memory etc. should be
+  fine).
 - Background tasks will not be scheduled in the simulator.  You'll need to
   either test it on a real device, or use the
   [Simulate Background Fetch](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/iOS_Simulator_Guide/TestingontheiOSSimulator/TestingontheiOSSimulator.html#//apple_ref/doc/uid/TP40012848-CH4-SW5)
