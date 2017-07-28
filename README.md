@@ -123,12 +123,14 @@ an object of the following shape:
     - **`BackgroundTask.UNAVAILABLE_RESTRICTED`**: - Background updates
       unavailable and can't be enabled by the user (e.g. parental controls).
 
-## Caveats
+## Limitations
 
-- The exact timings of tasks are unpredictable (depends on device sleep state
-  etc.), and cannot be more frequent than every 15 minutes.  This library
-  should only be used for tasks that can have inexact timing, such as the
-  periodic background syncing of data.
+- The exact timings of tasks are unpredictable (both iOS and Android use black-
+  box algorithms depending on factors like device sleep state etc.), and cannot
+  be made more frequent than every 15 minutes.  This library should only be
+  used for tasks that are an incremental feature, and can have inexact timing,
+  such as the periodic background syncing of data, and you should be prepared
+  for the case that background task never fires at all.
   
 Android:
 
@@ -138,8 +140,13 @@ Android:
   
 iOS:
 
-- iOS Background Fetch does not work in the simulator.  It must be tested on a
-  real device.
+- The iOS Background Fetch algorithm is a black box, and as it stands, it will
+  not continue to run after a user manually closes the app.  (The app being
+  closed by the OS to free up memory etc. should be fine).
+- Background tasks will not be scheduled in the simulator.  You'll need to
+  either test it on a real device, or use the
+  [Simulate Background Fetch](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/iOS_Simulator_Guide/TestingontheiOSSimulator/TestingontheiOSSimulator.html#//apple_ref/doc/uid/TP40012848-CH4-SW5)
+  feature of Xcode.
 - The user can disable Background App Refresh for your app from their Settings
   (use `statusAsync()` to check for this).
 
