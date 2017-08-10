@@ -152,6 +152,16 @@ iOS:
   (use `statusAsync()` to check for this).
 
 
+## Debugging
+
+### Android
+
+```bash
+$ adb logcat *:S ReactNative:V ReactNativeJS:V BackgroundTask:V
+```
+
+Keep in mind that after the app leaves the foreground, you'll have to wait at least 50% of the desired period (so, default is 7m30s) before the task executes.
+
 ## Examples
 
 ### Simple
