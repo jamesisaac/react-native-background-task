@@ -22,7 +22,7 @@ const BackgroundTask: BackgroundTaskInterface = {
     BackgroundFetch.configure(
       { stopOnTerminate: false },
       this._definition,
-      () => {
+      (error) => {
         console.warn(`Background Fetch failed to start`)
       }
     )
