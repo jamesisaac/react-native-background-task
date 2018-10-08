@@ -126,7 +126,7 @@ an object of the following shape:
 ## Limitations
 
 - Tasks cannot be scheduled any more frequently than every 15 minutes.
-- The exact timings of task execution are unpredictable, as both Anrdoid and
+- The exact timings of task execution are unpredictable, as both Android and
   iOS use black-box algorithms, which depend on factors like device sleep
   state.  This library should only be used for tasks that are an incremental 
   feature, and can have inexact timing, such as the periodic background syncing
